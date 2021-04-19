@@ -1,11 +1,11 @@
 <script lang="ts">
-    import boardStore from '../lib/store/boards';
+  import boardStore from '../lib/store/boards';
 
-    import BoardHeader from './BoardHeader.svelte';
+  import BoardHeader from './BoardHeader.svelte';
 
-    export let params;
+  export let params;
 
-    $: board = boardStore.findBoard(params.id);
+  $: board = boardStore.findBoard(params.id);
 </script>
 
 <BoardHeader {board} />
