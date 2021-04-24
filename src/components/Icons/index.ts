@@ -8,6 +8,9 @@ import Star from './Star.svelte';
 import Times from './Times.svelte';
 import Calendar from './Calendar.svelte';
 import BarChart from './BarChart.svelte';
+import BarChartHor from './BarChartHor.svelte';
+import Columns from './Columns.svelte';
+import CaretDown from './CaretDown.svelte';
 
 interface IconType {
   name: string;
@@ -23,4 +26,7 @@ export const icons: IconType[] = [
   { name: 'times', component: Times },
   { name: 'calendar', component: Calendar },
   { name: 'barchart', component: BarChart },
+  { name: 'barchart-hor', component: BarChartHor },
+  { name: 'columns', component: Columns },
+  { name: 'caret-down', component: CaretDown },
 ];

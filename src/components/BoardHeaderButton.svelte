@@ -3,7 +3,7 @@
 
   import Icon from './Icon.svelte';
 
-  export let view: 'board' | 'calendar';
+  export let view: string;
   export let icon: string;
   export let active: boolean;
 
