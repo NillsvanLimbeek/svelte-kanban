@@ -12,7 +12,7 @@
   let menuOpen = false;
 </script>
 
-<header class="flex justify-between mb-2 px-3 py-5 border-b border-gray-200 shadow-md">
+<header class="relative flex justify-between px-3 py-5 border-b border-gray-200 shadow-md">
   <div
     class="flex cursor-pointer text-gray-400 hover:text-kanban-blue transition-colors duration-300 ease-in-out"
     on:click={() => (boardsMenuOpen = true)}

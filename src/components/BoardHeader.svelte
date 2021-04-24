@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Board } from '../lib/types';
-  import Icon from './Icon.svelte';
+  import BoardHeaderButton from './BoardHeaderButton.svelte';
 
   export let board: Board;
+  let view: 'board' | 'calendar' = 'board';
 </script>
 
 <div class="flex justify-between">
@@ -11,15 +12,22 @@
     <p class="text-lg">{board.title}</p>
   </div>
 
-  <div class="flex">
-    <button class="flex items-center px-3 border-t border-b border-l border-gray-300 rounded-l-sm">
-      <Icon name="barchart" class="transform rotate-180 scale-75" />
-      Boards
-    </button>
+  <p>{view}</p>
 
-    <button class="flex items-center px-3 border border-gray-300 rounded-r-sm">
-      <Icon name="calendar" class="transform scale-75" />
-      Calendar
-    </button>
+  <div class="flex">
+    <BoardHeaderButton
+      class="border rounded-l"
+      view="board"
+      icon="barchart"
+      active={view === 'board'}
+      on:view={(e) => (view = e.detail)}
+    />
+    <BoardHeaderButton
+      class="border-r border-t border-b rounded-r"
+      view="calendar"
+      icon="calendar"
+      active={view === 'calendar'}
+      on:view={(e) => (view = e.detail)}
+    />
   </div>
 </div>

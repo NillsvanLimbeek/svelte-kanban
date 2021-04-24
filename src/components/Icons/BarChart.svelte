@@ -12,6 +12,7 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    transform="rotate(180)"
   >
     <path d="M18 20V10M12 20V4M6 20v-6" />
   </svg>

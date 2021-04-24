@@ -14,7 +14,7 @@
 
 <Header {boards} />
 
-<main class="p-5">
+<main class="h-screen p-5 bg-gray-100">
   <Router {routes} />
 </main>
 
