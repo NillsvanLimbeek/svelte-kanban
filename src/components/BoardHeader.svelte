@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { Board } from '../lib/types';
   import BoardHeaderButton from './BoardHeaderButton.svelte';
-  import DatepickerButton from './Icons/DatepickerButton.svelte';
+  import DatepickerButton from './DatepickerButton.svelte';
 
   export let board: Board;
   let view: 'board' | 'calendar' = 'board';
   let calendarView: 'week' | 'month' = 'month';
 </script>
 
-<div class="w-full flex justify-between">
+<div class="w-full flex justify-between mb-4">
   <div class="w-1/5 flex">
     <div class="h-10 w-10 rounded mr-2" style="background-color: {board.color}" />
     <p class="text-lg">{board.title}</p>

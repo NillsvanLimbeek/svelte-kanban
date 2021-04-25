@@ -11,6 +11,8 @@ import BarChart from './BarChart.svelte';
 import BarChartHor from './BarChartHor.svelte';
 import Columns from './Columns.svelte';
 import CaretDown from './CaretDown.svelte';
+import Circle from './Circle.svelte';
+import MoreHor from './MoreHor.svelte';
 
 interface IconType {
   name: string;
@@ -29,4 +31,6 @@ export const icons: IconType[] = [
   { name: 'barchart-hor', component: BarChartHor },
   { name: 'columns', component: Columns },
   { name: 'caret-down', component: CaretDown },
+  { name: 'circle', component: Circle },
+  { name: 'more-hor', component: MoreHor },
 ];
