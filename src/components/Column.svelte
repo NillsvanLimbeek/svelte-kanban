@@ -2,24 +2,26 @@
   import { dndzone } from 'svelte-dnd-action';
   import { flip } from 'svelte/animate';
 
+  import columnStore from '../lib/store/columns';
   import cardStore from '../lib/store/cards';
-  import type { Column } from '../lib/types';
-  import Card from './Card.svelte';
+  import type { Column, Card as ICard, DragEvent } from '../lib/types';
 
+  import Card from './Card.svelte';
   import Icon from './Icon.svelte';
 
-  export let column: Column;
+  export let columnId: string;
 
-  $: cards = cardStore.findCards(column.id);
+  $: columnIndex = $columnStore.columns.findIndex((column) => column.id === columnId);
+  $: column = $columnStore.columns[columnIndex];
+  $: cards = column.cardIds.map((id) => cardStore.findCardById(id));
 
-  function handleDndConsiderCards(e) {
-    cards = e.detail.items;
-  }
+  function handleDndFinalizeCards(e: CustomEvent<DragEvent<ICard[]>>) {
+    const ids = e.detail.items.map((item) => item.id);
 
-  function handleDndFinalizeCards(e) {
-    cards = e.detail.items;
-    cardStore.update((n) => (n.cards = e.detail.items));
-    console.log($cardStore);
+    const newColumn = columnStore.findColumnById(column.id);
+    newColumn.cardIds = ids;
+
+    columnStore.updateColumn(newColumn);
   }
 </script>
 
@@ -36,7 +38,7 @@
   <div
     class="flex flex-col"
     use:dndzone={{ items: cards, flipDurationMs: 300 }}
-    on:consider={handleDndConsiderCards}
+    on:consider={(e) => (cards = e.detail.items)}
     on:finalize={handleDndFinalizeCards}
   >
     {#each cards as card (card.id)}

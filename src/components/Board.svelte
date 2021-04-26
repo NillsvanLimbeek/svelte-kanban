@@ -15,11 +15,8 @@
   $: board = $boardStore.boards[boardIndex];
   $: columns = board.columnIds.map((id) => columnStore.findColumnById(id));
 
-  // type e
   function handleDndFinalizeColumns(e: CustomEvent<DragEvent<IColumn[]>>) {
-    const items = e.detail.items;
-    const ids = items.map((item) => item.id);
-
+    const ids = e.detail.items.map((item) => item.id);
     const newBoard = boardStore.findBoard(params.id);
     newBoard.columnIds = ids;
 
@@ -37,7 +34,7 @@
 >
   {#each columns as column (column.id)}
     <div animate:flip={{ duration: 200 }}>
-      <Column {column} />
+      <Column columnId={column.id} />
     </div>
   {/each}
 </div>

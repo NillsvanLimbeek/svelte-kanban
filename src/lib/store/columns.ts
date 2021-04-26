@@ -45,6 +45,16 @@ const store = () => {
     findColumnById(id: string) {
       return state.columns.find((column) => column.id === id);
     },
+
+    updateColumn(newColumn: Column) {
+      const columnIndex = state.columns.findIndex((column) => column.id === newColumn.id);
+      state.columns[columnIndex] = newColumn;
+
+      update((state) => {
+        state.columns = [...state.columns];
+        return state;
+      });
+    },
   };
 
   return { set, subscribe, update, ...methods };

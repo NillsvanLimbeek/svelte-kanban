@@ -50,6 +50,10 @@ const store = () => {
     findCards(id: string) {
       return state.cards.filter((card) => card.columnId === id);
     },
+
+    findCardById(id: string) {
+      return state.cards.find((card) => card.id === id);
+    },
   };
 
   return { set, subscribe, update, ...methods };
