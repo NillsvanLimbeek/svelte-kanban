@@ -3,4 +3,5 @@ export interface Board {
   title: string;
   favorite: boolean;
   color: string;
+  columnIds: string[];
 }

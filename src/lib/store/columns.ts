@@ -41,6 +41,10 @@ const store = () => {
     findColumns(id: string) {
       return state.columns.filter((column) => column.boardId === id);
     },
+
+    findColumnById(id: string) {
+      return state.columns.find((column) => column.id === id);
+    },
   };
 
   return { set, subscribe, update, ...methods };

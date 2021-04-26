@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { dndzone } from 'svelte-dnd-action';
+  import { flip } from 'svelte/animate';
+
   import cardStore from '../lib/store/cards';
   import type { Column } from '../lib/types';
   import Card from './Card.svelte';
@@ -8,6 +11,16 @@
   export let column: Column;
 
   $: cards = cardStore.findCards(column.id);
+
+  function handleDndConsiderCards(e) {
+    cards = e.detail.items;
+  }
+
+  function handleDndFinalizeCards(e) {
+    cards = e.detail.items;
+    cardStore.update((n) => (n.cards = e.detail.items));
+    console.log($cardStore);
+  }
 </script>
 
 <div class="w-60 bg-white mr-3 px-3 border-gray-300 shadow-md rounded-sm self-start">
@@ -20,9 +33,16 @@
     <Icon name="more-hor" class="text-gray-400 cursor-pointer hover:text-kanban-blue" />
   </div>
 
-  <div class="flex flex-col">
-    {#each cards as card}
-      <Card {card} />
+  <div
+    class="flex flex-col"
+    use:dndzone={{ items: cards, flipDurationMs: 300 }}
+    on:consider={handleDndConsiderCards}
+    on:finalize={handleDndFinalizeCards}
+  >
+    {#each cards as card (card.id)}
+      <div class="mb-4 rounded last:mb-0" animate:flip={{ duration: 300 }}>
+        <Card {card} />
+      </div>
     {/each}
   </div>
 
