@@ -17,7 +17,8 @@
 
   function handleDndFinalizeColumns(e: CustomEvent<DragEvent<IColumn[]>>) {
     const ids = e.detail.items.map((item) => item.id);
-    const newBoard = boardStore.findBoard(params.id);
+
+    const newBoard = boardStore.findBoardById(params.id);
     newBoard.columnIds = ids;
 
     boardStore.updateBoard(newBoard);
@@ -34,7 +35,7 @@
 >
   {#each columns as column (column.id)}
     <div animate:flip={{ duration: 200 }}>
-      <Column columnId={column.id} />
+      <Column {column} />
     </div>
   {/each}
 </div>

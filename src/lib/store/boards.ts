@@ -38,7 +38,7 @@ const store = () => {
   const { set, subscribe, update } = writable(state);
 
   const methods = {
-    findBoard(id: string) {
+    findBoardById(id: string) {
       return state.boards.find((board) => board.id === id);
     },
 

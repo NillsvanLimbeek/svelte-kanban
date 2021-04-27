@@ -9,10 +9,8 @@
   import Card from './Card.svelte';
   import Icon from './Icon.svelte';
 
-  export let columnId: string;
+  export let column: Column;
 
-  $: columnIndex = $columnStore.columns.findIndex((column) => column.id === columnId);
-  $: column = $columnStore.columns[columnIndex];
   $: cards = column.cardIds.map((id) => cardStore.findCardById(id));
 
   function handleDndFinalizeCards(e: CustomEvent<DragEvent<ICard[]>>) {
