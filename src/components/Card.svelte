@@ -22,7 +22,20 @@
     <Icon name="times" />
   </div>
 
-  <h1>{card.title}</h1>
+  <div class="flex items-center">
+    <Icon name="sidebar" />
+    <h1 class="ml-4">{card.title}</h1>
+  </div>
+
+  <div class="flex items-center">
+    <Icon name="align-left" />
+    <h1 class="ml-4">Description</h1>
+  </div>
+
+  <div class="flex items-center">
+    <Icon name="list" />
+    <h1 class="ml-4">Activity</h1>
+  </div>
 </div>
 
 <div

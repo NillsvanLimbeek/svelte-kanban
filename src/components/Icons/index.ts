@@ -1,4 +1,4 @@
-import type { SvelteComponent } from 'svelte';
+import type { IconType } from './../../lib/types';
 
 import Grid from './Grid.svelte';
 import Trello from './Trello.svelte';
@@ -13,11 +13,9 @@ import Columns from './Columns.svelte';
 import CaretDown from './CaretDown.svelte';
 import Circle from './Circle.svelte';
 import MoreHor from './MoreHor.svelte';
-
-interface IconType {
-  name: string;
-  component: typeof SvelteComponent;
-}
+import SideBar from './SideBar.svelte';
+import AlignLeft from './AlignLeft.svelte';
+import List from './List.svelte';
 
 export const icons: IconType[] = [
   { name: 'grid', component: Grid },
@@ -33,4 +31,7 @@ export const icons: IconType[] = [
   { name: 'caret-down', component: CaretDown },
   { name: 'circle', component: Circle },
   { name: 'more-hor', component: MoreHor },
+  { name: 'sidebar', component: SideBar },
+  { name: 'align-left', component: AlignLeft },
+  { name: 'list', component: List },
 ];

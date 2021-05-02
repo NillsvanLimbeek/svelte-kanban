@@ -4,7 +4,7 @@
   import Header from './components/Header.svelte';
   import Tailwind from './components/Tailwind.svelte';
 
-  import { routes } from './lib/routes';
+  import { mainRoutes } from './lib/routes/main-routes';
   import boardStore from './lib/store/boards';
 
   $: boards = $boardStore.boards;
@@ -15,7 +15,7 @@
 <Header {boards} />
 
 <main class="h-screen p-5 bg-gray-100">
-  <Router {routes} />
+  <Router routes={mainRoutes} />
 </main>
 
 <style src="./style.css"></style>
