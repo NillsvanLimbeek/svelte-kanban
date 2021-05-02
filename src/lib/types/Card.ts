@@ -1,10 +1,10 @@
-import type { Label } from './Label';
+import type { ILabel } from './Label';
 
-export interface Card {
+export interface ICard {
   id: string;
   columnId: string;
   title: string;
-  label?: Label[];
+  label?: ILabel[];
   dueDate?: Date;
   description?: string;
 

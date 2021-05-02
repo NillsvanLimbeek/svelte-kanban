@@ -1,12 +1,12 @@
 import { writable } from 'svelte/store';
 
-import type { Board } from '../types';
+import type { IBoard } from '../types';
 
 interface State {
-  boards: Board[];
+  boards: IBoard[];
 }
 
-const BOARDS: Board[] = [
+const BOARDS: IBoard[] = [
   {
     id: '0fe2fe5b-acf1-44a1-b3f7-b7879155cae3',
     title: 'Board #1',
@@ -42,7 +42,7 @@ const store = () => {
       return state.boards.find((board) => board.id === id);
     },
 
-    updateBoard(newBoard: Board) {
+    updateBoard(newBoard: IBoard) {
       const boardIndex = state.boards.findIndex((board) => board.id === newBoard.id);
       state.boards[boardIndex] = newBoard;
 

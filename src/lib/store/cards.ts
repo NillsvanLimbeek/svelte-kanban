@@ -1,12 +1,12 @@
 import { writable } from 'svelte/store';
 
-import type { Card } from '../types';
+import type { ICard } from '../types';
 
 interface State {
-  cards: Card[];
+  cards: ICard[];
 }
 
-const CARDS: Card[] = [
+const CARDS: ICard[] = [
   {
     id: '60b0d3b0-9303-455c-b73a-a83fb3361932',
     columnId: '2cd7d828-74c6-4a72-95c4-379e4fefcf9e',
@@ -32,11 +32,6 @@ const CARDS: Card[] = [
     columnId: 'ff01ce4c-f557-4b40-b514-3dffef0bf605',
     title: 'Card #5',
   },
-  {
-    id: 'c98f212d-0a59-41c8-a870-0fbf3d27c60e',
-    columnId: '90106ace-78c8-4348-a9de-5821d73beaa2',
-    title: 'Card #5',
-  },
 ];
 
 const store = () => {
@@ -53,6 +48,13 @@ const store = () => {
 
     findCardById(id: string) {
       return state.cards.find((card) => card.id === id);
+    },
+
+    addCard(card: ICard) {
+      update((state) => {
+        state.cards = [...state.cards, card];
+        return state;
+      });
     },
   };
 
