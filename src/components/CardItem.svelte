@@ -1,9 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import type { Card } from '../lib/types';
+  import type { ICard } from '../lib/types';
 
-  export let card: Card;
+  export let card: ICard;
 
   const dispatch = createEventDispatcher();
 </script>

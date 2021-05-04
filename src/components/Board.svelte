@@ -5,6 +5,7 @@
 
   import boardStore from '../lib/store/boards';
   import columnStore from '../lib/store/columns';
+  import cardStore from '../lib/store/cards';
   import type { DragEvent, IColumn, IBoard, ICard } from '../lib/types';
   import { boardRoutes } from '../lib/routes';
 
@@ -68,6 +69,7 @@
       columnId: e.detail,
       title: 'Test ',
     };
+    cardStore.addCard(card);
 
     const newColumn: IColumn = { ...column, cards: [...column.cards, card] };
     columnStore.updateColumn(newColumn);
