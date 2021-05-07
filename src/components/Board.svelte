@@ -9,7 +9,7 @@
   import type { DragEvent, IColumn, IBoard, ICard } from '../lib/types';
   import { boardRoutes } from '../lib/routes';
 
-  import BoardHeader from './BoardHeader.svelte';
+  import BoardHeader from './BoardHeader/BoardHeader.svelte';
   import CardItem from './CardItem.svelte';
   import Column from './Column.svelte';
   import PlaceholderShadow from './PlaceholderShadow.svelte';
@@ -76,7 +76,7 @@
   }
 </script>
 
-<BoardHeader {board} />
+<BoardHeader {board} on:favorite={(e) => console.log(e)} />
 
 <div class="flex">
   <div

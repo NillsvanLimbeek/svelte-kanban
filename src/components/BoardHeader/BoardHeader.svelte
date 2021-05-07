@@ -1,16 +1,26 @@
 <script lang="ts">
-  import type { Board } from '../lib/types';
-  import BoardHeaderButton from './BoardHeaderButton.svelte';
-  import DatepickerButton from './DatepickerButton.svelte';
+  import { createEventDispatcher } from 'svelte';
 
-  export let board: Board;
+  import type { IBoard } from '../../lib/types';
+  import BoardHeaderButton from '../BoardHeaderButton.svelte';
+  import DatepickerButton from '../DatepickerButton.svelte';
+
+  export let board: IBoard;
+
   let view: 'board' | 'calendar' = 'board';
   let calendarView: 'week' | 'month' = 'month';
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="w-full flex justify-between mb-4">
   <div class="w-1/5 flex">
-    <div class="h-10 w-10 rounded mr-2" style="background-color: {board.color}" />
+    <div
+      data-testid="square"
+      class="h-10 w-10 rounded mr-2"
+      style="background-color: {board.color}"
+      on:click={() => dispatch('favorite', !board.favorite)}
+    />
     <p class="text-lg">{board.title}</p>
   </div>
 
