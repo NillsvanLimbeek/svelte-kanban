@@ -88,7 +88,7 @@
       dropTargetStyle: { outline: 'none' },
     }}
     on:consider={(e) => (columns = e.detail.items)}
-    on:finalize={finalizeColumns}
+    on:finalize={(e) => finalizeColumns(e)}
   >
     {#each columns as column (column.id)}
       <div animate:flip={{ duration: 200 }}>

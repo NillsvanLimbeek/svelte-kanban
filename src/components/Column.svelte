@@ -1,11 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import type { Column } from '../lib/types';
+  import type { IColumn } from '../lib/types';
+  import ColumnMenu from './ColumnMenu.svelte';
 
   import Icon from './Icon.svelte';
 
-  export let column: Column;
+  export let column: IColumn;
+  let isOpen = false;
 
   const dispatch = createEventDispatcher();
 </script>
@@ -17,7 +19,15 @@
       <h2 class="font-medium text-gray-800">{column.title}</h2>
     </div>
 
-    <Icon name="more-hor" class="text-gray-400 cursor-pointer hover:text-kanban-blue" />
+    <div on:click={() => (isOpen = true)}>
+      <Icon name="more-hor" class="text-gray-400 cursor-pointer hover:text-kanban-blue" />
+    </div>
+
+    {#if isOpen}
+      <div class="absolute">
+        <ColumnMenu on:close={() => (isOpen = false)} />
+      </div>
+    {/if}
   </div>
 
   <slot />

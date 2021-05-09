@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent } from '@testing-library/svelte';
+import { render } from '@testing-library/svelte';
 
 import type { IBoard } from './../../lib/types/Board';
 
