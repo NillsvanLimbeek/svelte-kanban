@@ -1,7 +1,10 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import type { DragEvent, ICard, IColumn } from '../lib/types';
+  import columnStore from '../lib/store/columns';
+  import cardStore from '../lib/store/cards';
 
-  import type { IColumn } from '../lib/types';
+  import CardItem from './CardItem.svelte';
+  import CardList from './CardList.svelte';
   import ColumnMenu from './ColumnMenu.svelte';
 
   import Icon from './Icon.svelte';
@@ -9,7 +12,21 @@
   export let column: IColumn;
   let isOpen = false;
 
-  const dispatch = createEventDispatcher();
+  function considerCards(e: CustomEvent<DragEvent<ICard[]>>) {
+    column.cards = e.detail.items;
+  }
+
+  async function addCard() {
+    const card: ICard = {
+      id: `${Date.now()}`,
+      columnId: column.id,
+      title: 'Test ',
+    };
+    cardStore.addCard(card);
+
+    const newColumn: IColumn = { ...column, cards: [...column.cards, card] };
+    columnStore.updateColumn(newColumn);
+  }
 </script>
 
 <div class="w-60 bg-white mr-3 px-3 border-gray-300 shadow-md rounded-sm self-start">
@@ -30,11 +47,16 @@
     {/if}
   </div>
 
-  <slot />
+  <CardList
+    cards={column.cards}
+    itemComponent={CardItem}
+    handleConsider={(e) => considerCards(e)}
+    handleFinalize={(e) => columnStore.finalizeCards(e, column.id)}
+  />
 
   <div class="w-full flex justify-center">
     <h2
-      on:click={() => dispatch('add-card', column.id)}
+      on:click={addCard}
       class="text-gray-300 font-light py-6 cursor-pointer transition-colors duration-300 ease-in-out hover:text-gray-800"
     >
       Add card

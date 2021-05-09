@@ -1,3 +1,4 @@
+import { DragEvent } from './../types/DragEvent';
 import { writable } from 'svelte/store';
 
 import { ICard } from './../types/Card';
@@ -86,6 +87,20 @@ const store = () => {
         state.columns = [...state.columns, column];
         return state;
       });
+    },
+
+    considerCards(e: CustomEvent<DragEvent<ICard[]>>, columnId: string) {
+      const columnIndex = state.columns.findIndex((column) => column.id === columnId);
+      state.columns[columnIndex].cards = e.detail.items;
+      state.columns = [...state.columns];
+    },
+
+    finalizeCards(e: CustomEvent<DragEvent<ICard[]>>, columnId: string) {
+      const columnIndex = state.columns.findIndex((column) => column.id === columnId);
+      state.columns[columnIndex].cards = e.detail.items;
+      state.columns = [...state.columns];
+
+      // make api call here
     },
   };
 

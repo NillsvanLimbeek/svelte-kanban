@@ -13,6 +13,7 @@
   import CardItem from './CardItem.svelte';
   import Column from './Column.svelte';
   import PlaceholderShadow from './PlaceholderShadow.svelte';
+  import ColumnList from './ColumnList.svelte';
 
   export let params;
 
@@ -23,6 +24,10 @@
   $: updateColumns(trigger);
   function updateColumns(trigger?: IColumn[]) {
     columns = board.columnIds.map((id) => columnStore.findColumnById(id));
+  }
+
+  function considerColumns(e: CustomEvent<DragEvent<IColumn[]>>) {
+    columns = e.detail.items;
   }
 
   function finalizeColumns(e: CustomEvent<DragEvent<IColumn[]>>) {
@@ -47,89 +52,10 @@
 
     // make api call here
   }
-
-  function addColumn() {
-    const column: IColumn = {
-      id: `${Date.now()}`,
-      boardId: board.id,
-      cards: [],
-      title: 'Test ',
-    };
-
-    columnStore.addColumn(column);
-
-    const newBoard: IBoard = { ...board, columnIds: [...board.columnIds, column.id] };
-    boardStore.updateBoard(newBoard);
-  }
-
-  async function addCard(e: CustomEvent<string>) {
-    const column = columnStore.findColumnById(e.detail);
-    const card: ICard = {
-      id: `${Date.now()}`,
-      columnId: e.detail,
-      title: 'Test ',
-    };
-    cardStore.addCard(card);
-
-    const newColumn: IColumn = { ...column, cards: [...column.cards, card] };
-    columnStore.updateColumn(newColumn);
-  }
 </script>
 
 <BoardHeader {board} on:favorite={(e) => console.log(e)} />
 
-<div class="flex">
-  <div
-    class="flex"
-    use:dndzone={{
-      items: columns,
-      flipDurationMs: 300,
-      type: 'columns',
-      dropTargetStyle: { outline: 'none' },
-    }}
-    on:consider={(e) => (columns = e.detail.items)}
-    on:finalize={(e) => finalizeColumns(e)}
-  >
-    {#each columns as column (column.id)}
-      <div animate:flip={{ duration: 200 }}>
-        <div class="relative">
-          <Column {column} on:add-card={(e) => addCard(e)}>
-            <div
-              class="flex flex-col"
-              use:dndzone={{
-                items: column.cards,
-                flipDurationMs: 300,
-                dropTargetStyle: { outline: 'none' },
-              }}
-              on:consider={(e) => considerCards(e, column.id)}
-              on:finalize={(e) => finalizeCards(e, column.id)}
-            >
-              {#each column.cards as card (card.id)}
-                <div class="relative mb-4 rounded last:mb-0" animate:flip={{ duration: 300 }}>
-                  <CardItem {card} on:navigate={() => push(`/board/${board.id}/card/${card.id}`)} />
-
-                  {#if card[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-                    <PlaceholderShadow type="card" />
-                  {/if}
-                </div>
-              {/each}
-            </div>
-          </Column>
-
-          {#if column[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-            <PlaceholderShadow type="column" />
-          {/if}
-        </div>
-      </div>
-    {/each}
-  </div>
-
-  <button
-    on:click={addColumn}
-    class="w-60 bg-white py-5 border-gray-300 shadow-md rounded-sm self-start font-light text-gray-300 hover:text-gray-800 transition-colors duration-300 ease-in-out"
-  >
-    Add Column
-  </button>
-</div>
+<ColumnList {columns} itemComponent={Column} {finalizeColumns} {considerColumns} />
 
 <Router routes={boardRoutes} prefix={`/board/${params.id}`} />
